@@ -1,0 +1,502 @@
+.root {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,50,100,0.18);
+  animation: slideIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.header {
+  background: linear-gradient(135deg, #1565C0, #0D47A1);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gameTitle {
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+}
+
+.closeBtn {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: white;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: background 0.2s;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.closeBtn:hover { background: rgba(255,255,255,0.3); }
+
+.body { padding: 20px; }
+
+.game { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+
+/* ── Score Bar ── */
+.scoreBar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #F1F5F9;
+  border-radius: 12px;
+  padding: 8px 14px;
+  width: 100%;
+}
+
+.scoreLabel { font-weight: 800; color: #1E293B; font-size: 0.85rem; }
+
+.streakBadge {
+  background: #FEF3C7;
+  color: #92400E;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.progressTrack {
+  flex: 1;
+  height: 10px;
+  background: #CBD5E1;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #4FC3F7, #66BB6A);
+  border-radius: 20px;
+  transition: width 0.5s ease;
+}
+
+.progressLabel { font-size: 0.72rem; color: #64748B; font-weight: 700; }
+
+/* ── Common game elements ── */
+.gameInstruction {
+  font-weight: 700;
+  color: #334155;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.bigEmoji {
+  font-size: 4.5rem;
+  display: block;
+  animation: emojiPop 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+@keyframes emojiPop {
+  from { transform: scale(0); }
+  to   { transform: scale(1); }
+}
+
+.clue {
+  font-size: 0.8rem;
+  color: #64748B;
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* ── Word game ── */
+.wordRow {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.letterSlot {
+  width: 38px; height: 38px;
+  border-radius: 8px;
+  border: 2px solid #CBD5E1;
+  background: #F8FAFC;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1E293B;
+  transition: all 0.2s;
+}
+
+.filled  { background: #EFF6FF; border-color: #4FC3F7; }
+.correct { background: #F0FDF4; border-color: #66BB6A; color: #166534; animation: correctPop 0.3s ease; }
+.wrong   { background: #FFF1F2; border-color: #F87171; color: #991B1B; animation: shake 0.3s ease; }
+
+@keyframes correctPop {
+  0%   { transform: scale(0.8); }
+  50%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25%      { transform: translateX(-4px); }
+  75%      { transform: translateX(4px); }
+}
+
+.letterPool {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  max-width: 300px;
+}
+
+.letterBtn {
+  width: 46px; height: 46px;
+  border-radius: 10px;
+  border: 2px solid #93C5FD;
+  background: white;
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1E3A5F;
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow: 0 2px 0 #93C5FD;
+}
+
+.letterBtn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 0 #60A5FA;
+  background: #EFF6FF;
+}
+
+.letterUsed { opacity: 0.3; pointer-events: none; }
+
+/* ── Option buttons ── */
+.optionGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 340px;
+}
+
+.optionBtn {
+  padding: 14px 8px;
+  border-radius: 14px;
+  border: 2px solid #E2E8F0;
+  background: #F8FAFC;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  color: #1E293B;
+  font-size: 1rem;
+}
+
+.optionBtn:hover:not(:disabled) {
+  border-color: #93C5FD;
+  background: #EFF6FF;
+  transform: scale(1.04);
+}
+
+.optCorrect { background: #F0FDF4 !important; border-color: #66BB6A !important; color: #166534 !important; animation: correctPop 0.3s ease; }
+.optWrong   { background: #FFF1F2 !important; border-color: #F87171 !important; color: #991B1B !important; animation: shake 0.3s ease; }
+
+.numberBtn { font-size: 1.4rem !important; font-family: 'Baloo 2', cursive !important; }
+
+/* ── Sequence ── */
+.sequenceRow {
+  font-size: 1.6rem;
+  letter-spacing: 6px;
+  background: #F1F5F9;
+  padding: 12px 20px;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.countDisplay {
+  font-size: 2rem;
+  letter-spacing: 4px;
+  background: #F1F5F9;
+  padding: 14px 20px;
+  border-radius: 14px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* ── Writing ── */
+.writeInput {
+  width: 100%;
+  max-width: 280px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 2px solid #CBD5E1;
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.2rem;
+  color: #1E293B;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s;
+  background: #F8FAFC;
+}
+
+.writeInput:focus     { border-color: #4FC3F7; background: #EFF6FF; }
+.inputCorrect         { border-color: #66BB6A !important; background: #F0FDF4 !important; color: #166534 !important; }
+
+/* ── Feedback ── */
+.feedback {
+  font-weight: 700;
+  font-size: 0.95rem;
+  min-height: 24px;
+  color: #64748B;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.fbCorrect { color: #166534 !important; }
+.fbWrong   { color: #991B1B !important; }
+.fbTrying  { color: #92400E !important; }
+
+/* ── Memory game ── */
+.memHeader {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #475569;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.resetBtn {
+  background: #EFF6FF;
+  border: 2px solid #93C5FD;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  color: #1E3A5F;
+  margin-left: auto;
+}
+
+.memGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  max-width: 280px;
+}
+
+.memCard {
+  width: 60px; height: 60px;
+  border-radius: 12px;
+  border: 2px solid #E2E8F0;
+  background: #F1F5F9;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.2s;
+  transform-style: preserve-3d;
+  perspective: 400px;
+  font-size: 1.6rem;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.memCard:hover:not(.memCardOpen) {
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.memFront, .memBack {
+  position: absolute;
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; height: 100%;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  transition: transform 0.35s;
+}
+
+.memBack  { transform: rotateY(180deg); }
+
+.memCardOpen .memFront { transform: rotateY(-180deg); }
+.memCardOpen .memBack  { transform: rotateY(0deg); }
+
+.memCardMatched {
+  background: #F0FDF4 !important;
+  border-color: #66BB6A !important;
+}
+
+.winBanner {
+  background: linear-gradient(135deg, #FEF9C3, #FDE68A);
+  border: 2px solid #FCD34D;
+  border-radius: 14px;
+  padding: 12px 24px;
+  font-family: 'Baloo 2', cursive;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #78350F;
+  text-align: center;
+  animation: winIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+@keyframes winIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+/* ── Level system additions ── */
+.levelRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.lvlTag { font-size: 0.7rem; font-weight: 700; color: #64748B; }
+.lvlBtn {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 2px solid #CBD5E1;
+  background: #F1F5F9;
+  font-size: 0.72rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s cubic-bezier(0.34,1.56,0.64,1);
+  color: #334155;
+}
+.lvlBtn:hover { transform: scale(1.1); }
+.lvlBtnActive {
+  background: #1E3A5F !important;
+  border-color: #38BDF8 !important;
+  color: #38BDF8 !important;
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.2);
+}
+.lvlBtnLocked { background: #E2E8F0 !important; color: #94A3B8 !important; cursor: not-allowed !important; font-size: 0.55rem !important; }
+.lvlName { font-size: 0.72rem; font-weight: 700; }
+
+/* Score bar updates */
+.scoreBar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #F1F5F9;
+  border-radius: 12px;
+  padding: 8px 14px;
+  width: 100%;
+}
+.scoreLeft { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.scoreNum  { font-weight: 800; color: #1E293B; font-size: 0.85rem; }
+.streakPill { background: #FEF3C7; color: #92400E; font-size: 0.7rem; font-weight: 800; padding: 2px 7px; border-radius: 20px; }
+.progressSection { flex: 1; display: flex; align-items: center; gap: 6px; min-width: 0; }
+.levelLabel { font-size: 0.65rem; font-weight: 800; color: #64748B; white-space: nowrap; }
+.progressTrack { flex: 1; height: 8px; background: #CBD5E1; border-radius: 20px; overflow: hidden; }
+.progressFill  { height: 100%; background: linear-gradient(90deg, #4FC3F7, #66BB6A); border-radius: 20px; transition: width 0.5s ease; }
+.xpLabel { font-size: 0.6rem; font-weight: 700; color: #94A3B8; white-space: nowrap; }
+
+/* Badge toast */
+.badgeToast {
+  position: absolute;
+  top: -14px; left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #1C2638, #0C2340);
+  border: 1px solid #38BDF8;
+  border-radius: 14px;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.4rem;
+  box-shadow: 0 8px 24px rgba(56,189,248,0.3);
+  z-index: 10;
+  animation: toastIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  white-space: nowrap;
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(-10px) scale(0.8); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0)    scale(1);   }
+}
+.badgeTitle { font-size: 0.62rem; color: #38BDF8; font-weight: 700; }
+.badgeName  { font-size: 0.75rem; color: #E2E8F0; font-weight: 700; }
+
+/* Level up banner */
+.levelUpBanner {
+  background: linear-gradient(135deg, #FEF9C3, #FDE68A);
+  border: 2px solid #FCD34D;
+  border-radius: 14px;
+  padding: 10px 20px;
+  font-family: 'Baloo 2', cursive;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #78350F;
+  text-align: center;
+  animation: lvlUp 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  width: 100%;
+}
+@keyframes lvlUp {
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+/* Word slots (renamed) */
+.slot { width: 36px; height: 36px; border-radius: 8px; border: 2px solid #CBD5E1; background: #F8FAFC; display: flex; align-items: center; justify-content: center; font-family: 'Baloo 2', cursive; font-size: 1rem; font-weight: 700; color: #1E293B; transition: all 0.2s; }
+.slotFilled { background: #EFF6FF; border-color: #4FC3F7; }
+.slotOk     { background: #F0FDF4 !important; border-color: #66BB6A !important; color: #166534 !important; animation: correctPop 0.3s ease; }
+.slotErr    { background: #FFF1F2 !important; border-color: #F87171 !important; animation: shake 0.3s ease; }
+
+/* Instruction */
+.instr { font-weight: 700; color: #334155; font-size: 0.95rem; text-align: center; }
+.clue  { font-size: 0.78rem; color: #64748B; font-weight: 600; font-style: italic; text-align: center; }
+
+/* Sequence / math boxes */
+.sequenceBox { font-size: 1.5rem; letter-spacing: 5px; background: #F1F5F9; padding: 12px 18px; border-radius: 14px; text-align: center; width: 100%; }
+.countBox    { font-size: 1.8rem; letter-spacing: 3px; background: #F1F5F9; padding: 14px 18px; border-radius: 14px; text-align: center; line-height: 1.5; width: 100%; }
+.mathBox     { font-family: 'Baloo 2', cursive; font-size: 2rem; font-weight: 800; color: #1E293B; background: #F1F5F9; padding: 14px 28px; border-radius: 14px; text-align: center; width: 100%; }
+
+/* Hint row for writing */
+.hintRow { display: flex; gap: 5px; justify-content: center; margin: 4px 0; }
+.hintChar { width: 26px; height: 26px; border-radius: 6px; border: 1.5px solid #CBD5E1; background: #F8FAFC; display: flex; align-items: center; justify-content: center; font-family: 'Baloo 2', cursive; font-size: 0.85rem; font-weight: 700; color: #94A3B8; transition: all 0.2s; }
+.hintOk    { background: #F0FDF4 !important; border-color: #66BB6A !important; color: #166534 !important; }
+.hintWrong { background: #FFF1F2 !important; border-color: #F87171 !important; color: #991B1B !important; }
+
+/* Result messages */
+.resultMsg  { font-weight: 700; font-size: 0.9rem; min-height: 22px; color: #64748B; text-align: center; }
+.msgOk  { color: #166534 !important; }
+.msgErr { color: #991B1B !important; }
+.msgTry { color: #92400E !important; }
+
+/* Memory */
+.memMeta { display: flex; align-items: center; gap: 12px; font-size: 0.8rem; font-weight: 700; color: #475569; width: 100%; flex-wrap: wrap; }
+.memGrid { display: grid; grid-template-columns: repeat(var(--cols,4), 1fr); gap: 8px; width: 100%; max-width: 320px; }
+.timer { color: #0EA5E9; }
+.timerUrgent { color: #EF4444 !important; animation: urgentBlink 0.5s infinite; }
+@keyframes urgentBlink { 50% { opacity: 0.4; } }
+.loseBanner {
+  background: linear-gradient(135deg, #FEE2E2, #FECACA);
+  border: 2px solid #F87171;
+  border-radius: 14px;
+  padding: 12px 20px;
+  font-weight: 700;
+  color: #991B1B;
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  animation: lvlUp 0.4s ease;
+}
+.tryAgainBtn {
+  background: #EF4444; border: none; color: white;
+  padding: 6px 16px; border-radius: 8px;
+  font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.8rem;
+  cursor: pointer;
+}
+
+/* Header updates */
+.headerRight { display: flex; align-items: center; gap: 8px; }
+.headerLevel { background: rgba(255,255,255,0.15); color: white; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; }

@@ -1,0 +1,56 @@
+// firebase/firestore.rules
+// Firestore Security Rules — KidSpark
+// Deploy: firebase deploy --only firestore:rules
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Helper functions ──────────────────────────
+    function isAuth() {
+      return request.auth != null;
+    }
+
+    function isOwner(familyId) {
+      // familyId == uid because we use uid as family document ID
+      return request.auth.uid == familyId;
+    }
+
+    // ── Families ──────────────────────────────────
+    match /families/{familyId} {
+      allow read, write: if isAuth() && isOwner(familyId);
+
+      // Kids
+      match /kids/{kidId} {
+        allow read, write: if isAuth() && isOwner(familyId);
+      }
+
+      // Settings
+      match /settings/{settingId} {
+        allow read, write: if isAuth() && isOwner(familyId);
+      }
+
+      // Activities
+      match /activities/{actId} {
+        allow read, write: if isAuth() && isOwner(familyId);
+      }
+
+      // Daily time
+      match /dailyTime/{timeId} {
+        allow read, write: if isAuth() && isOwner(familyId);
+      }
+
+      // Push tokens
+      match /pushTokens/{tokenId} {
+        allow read, write: if isAuth() && isOwner(familyId);
+      }
+
+      // Push logs
+      match /pushLogs/{logId} {
+        allow read:  if isAuth() && isOwner(familyId);
+        allow write: if false; // only Cloud Functions can write logs
+      }
+    }
+  }
+}

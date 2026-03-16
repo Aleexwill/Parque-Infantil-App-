@@ -1,0 +1,151 @@
+.root { display: flex; flex-direction: column; gap: 0; }
+
+/* Status row */
+.statusRow {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: #0D1520; border: 1px solid #1E293B;
+  border-radius: 14px; padding: 14px 16px; margin-bottom: 14px;
+}
+.statusIcon { font-size: 1.5rem; flex-shrink: 0; margin-top: 1px; }
+.statusLabel { font-size: 0.85rem; font-weight: 600; color: #94A3B8; }
+.statusLabel strong { font-weight: 800; }
+.hint { font-size: 0.72rem; color: #64748B; margin-top: 4px; line-height: 1.4; }
+
+/* Section */
+.section {
+  background: #0D1520; border: 1px solid #1E293B;
+  border-radius: 14px; padding: 14px 16px; margin-bottom: 12px;
+}
+.sectionTitle {
+  font-size: 0.76rem; font-weight: 700;
+  color: #64748B; text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+/* Trigger rows */
+.triggerRow {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid #111827;
+}
+.triggerRow:last-child { border-bottom: none; }
+.triggerIcon { font-size: 1.1rem; flex-shrink: 0; }
+.triggerText { flex: 1; min-width: 0; }
+.triggerLabel { font-size: 0.82rem; font-weight: 700; color: #CBD5E1; }
+.triggerSub   { font-size: 0.7rem; color: #475569; margin-top: 1px; }
+
+/* Toggle */
+.toggle {
+  width: 40px; height: 22px; border-radius: 20px;
+  background: #1E293B; position: relative;
+  cursor: pointer; border: none; transition: background 0.25s; flex-shrink: 0;
+}
+.toggle::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 16px; height: 16px; border-radius: 50%; background: #475569;
+  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), background 0.25s;
+}
+.toggleOn             { background: #0E4D2E !important; }
+.toggleOn::after      { transform: translateX(18px); background: #34D399 !important; }
+
+/* Device label input */
+.labelRow { margin-bottom: 10px; }
+.input {
+  width: 100%; padding: 10px 14px;
+  background: #0F172A; border: 1px solid #1E293B;
+  border-radius: 10px; color: #E2E8F0;
+  font-family: 'Nunito', sans-serif; font-size: 0.85rem;
+  outline: none; transition: border-color 0.2s;
+}
+.input:focus { border-color: #38BDF8; }
+.input::placeholder { color: #334155; }
+
+/* Test row */
+.testRow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.testHint { font-size: 0.75rem; color: #64748B; flex: 1; line-height: 1.4; }
+.testResult {
+  margin-top: 10px; padding: 8px 12px; border-radius: 8px;
+  font-size: 0.77rem; font-weight: 600;
+}
+.resultOk  { background: rgba(52,211,153,0.08);  color: #34D399; border: 1px solid rgba(52,211,153,0.2); }
+.resultErr { background: rgba(248,113,113,0.08); color: #F87171; border: 1px solid rgba(248,113,113,0.2); }
+
+/* Devices */
+.deviceRow {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid #111827;
+}
+.deviceRow:last-child { border-bottom: none; }
+.deviceIcon  { font-size: 1rem; }
+.deviceInfo  { flex: 1; min-width: 0; }
+.deviceName  { font-size: 0.82rem; font-weight: 700; color: #CBD5E1; }
+.deviceDate  { font-size: 0.7rem; color: #475569; margin-top: 1px; }
+
+/* Log list */
+.logList { display: flex; flex-direction: column; gap: 6px; }
+.logRow {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 0; border-bottom: 1px solid #111827;
+}
+.logRow:last-child { border-bottom: none; }
+.logEvent { font-size: 0.78rem; font-weight: 600; color: #94A3B8; flex: 1; }
+.logStats { font-size: 0.72rem; color: #475569; white-space: nowrap; }
+.logDate  { font-size: 0.68rem; color: #334155; white-space: nowrap; }
+
+/* Setup warning */
+.setupWarning {
+  background: rgba(251,191,36,0.06); border: 1px solid rgba(251,191,36,0.2);
+  border-radius: 12px; padding: 14px 16px; margin-top: 4px;
+}
+.setupWarning strong { font-size: 0.82rem; color: #FBBF24; display: block; margin-bottom: 6px; }
+.setupWarning p { font-size: 0.74rem; color: #92400E; line-height: 1.5; }
+.setupWarning code {
+  background: rgba(0,0,0,0.3); padding: 1px 5px;
+  border-radius: 4px; font-size: 0.7rem; color: #FBBF24;
+}
+
+/* Buttons */
+.btnPrimary {
+  background: linear-gradient(135deg, #0EA5E9, #6366F1);
+  border: none; border-radius: 10px; color: white;
+  font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.8rem;
+  padding: 8px 16px; cursor: pointer; white-space: nowrap;
+  display: flex; align-items: center; gap: 6px;
+  transition: opacity 0.2s; flex-shrink: 0;
+}
+.btnPrimary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btnDanger {
+  background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.25);
+  border-radius: 10px; color: #F87171;
+  font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.78rem;
+  padding: 7px 14px; cursor: pointer; white-space: nowrap;
+  transition: background 0.2s; flex-shrink: 0;
+}
+.btnDanger:hover { background: rgba(248,113,113,0.18); }
+
+.btnTest {
+  background: #0C2340; border: 1px solid #0E3A60;
+  border-radius: 10px; color: #38BDF8;
+  font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.8rem;
+  padding: 8px 16px; cursor: pointer; white-space: nowrap;
+  display: flex; align-items: center; gap: 6px;
+  transition: background 0.2s; flex-shrink: 0;
+}
+.btnTest:hover    { background: #0E3060; }
+.btnTest:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btnRemove {
+  background: transparent; border: 1px solid #1E293B;
+  border-radius: 8px; color: #475569;
+  font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 0.72rem;
+  padding: 4px 10px; cursor: pointer; transition: all 0.15s; flex-shrink: 0;
+}
+.btnRemove:hover { border-color: #F87171; color: #F87171; }
+
+/* Spinner */
+.spinner {
+  width: 14px; height: 14px;
+  border: 2px solid rgba(255,255,255,0.3); border-top-color: white;
+  border-radius: 50%; animation: spin 0.6s linear infinite; display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }

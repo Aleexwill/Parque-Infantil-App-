@@ -1,0 +1,112 @@
+/* ============================================
+   KIDSPARK — Global Styles & Design Tokens
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@500;600;700;800&display=swap');
+
+:root {
+  /* Kids palette */
+  --sky:       #4FC3F7;
+  --sky-dark:  #0288D1;
+  --sun:       #FFD54F;
+  --sun-dark:  #F9A825;
+  --grass:     #66BB6A;
+  --grass-dark:#2E7D32;
+  --coral:     #FF7043;
+  --violet:    #AB47BC;
+  --mint:      #4DB6AC;
+  --rose:      #EC407A;
+
+  /* Admin palette */
+  --adm-bg:     #080E1A;
+  --adm-surface:#111827;
+  --adm-card:   #1C2638;
+  --adm-border: #263348;
+  --adm-accent: #38BDF8;
+  --adm-green:  #34D399;
+  --adm-amber:  #FBBF24;
+  --adm-red:    #F87171;
+  --adm-purple: #A78BFA;
+  --adm-text:   #E2E8F0;
+  --adm-muted:  #64748B;
+
+  /* Shared */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --transition: 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.12);
+  --shadow-md: 0 6px 24px rgba(0,0,0,0.15);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.2);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--adm-bg);
+  color: #fff;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--adm-border); border-radius: 3px; }
+
+/* Selection */
+::selection { background: rgba(79, 195, 247, 0.3); }
+
+/* Utility classes */
+.font-display { font-family: 'Baloo 2', cursive; }
+
+.bounce {
+  animation: bounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes bounce {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.pulse-dot {
+  animation: pulseDot 2s ease-in-out infinite;
+}
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.85); }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, var(--adm-card) 25%, var(--adm-border) 50%, var(--adm-card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Floating clouds animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* Star sparkle */
+@keyframes sparkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  50%       { transform: scale(1.3) rotate(15deg); opacity: 0.8; }
+}
