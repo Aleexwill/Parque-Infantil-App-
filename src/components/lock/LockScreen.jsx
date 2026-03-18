@@ -8,7 +8,7 @@ import styles from './LockScreen.module.css'
    LockScreen — Pattern lock to enter Admin
    ───────────────────────────────────────────── */
 
-export default function LockScreen({ onUnlock }) {
+export default function LockScreen({ onUnlock, onBack }) {
   const { settings, logActivity, activeKidId, kids, family, user } = useApp()
   const [showHint, setShowHint] = useState(false)
 
@@ -108,6 +108,33 @@ export default function LockScreen({ onUnlock }) {
           <p className={styles.hintText}>
             Patrón actual configurado en el panel de administración. Por seguridad, contacta al otro padre/madre.
           </p>
+        )}
+
+        {/* Patrón por defecto: puntos 0→1→4→7→8 (L invertida) */}
+        {showHint && (
+          <div className={styles.defaultPattern}>
+            <p className={styles.hintText} style={{ marginTop: 8 }}>
+              <strong>Patrón por defecto:</strong> toca los puntos en este orden:
+            </p>
+            <div className={styles.patternGrid} style={{ margin: '10px auto' }}>
+              {[0,1,2,3,4,5,6,7,8].map(i => {
+                const isDefault = [0,1,4,7,8].includes(i)
+                const order = [0,1,4,7,8].indexOf(i)
+                return (
+                  <div key={i} className={`${styles.dot} ${isDefault ? styles.dotActive : ''}`}>
+                    {isDefault && <span className={styles.dotNum}>{order + 1}</span>}
+                    <span className={styles.dotRing} />
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
+        {onBack && (
+          <button className={styles.hintBtn} onClick={onBack} style={{ marginTop: 16, color: '#475569' }}>
+            ← Volver a juegos
+          </button>
         )}
       </div>
     </div>
